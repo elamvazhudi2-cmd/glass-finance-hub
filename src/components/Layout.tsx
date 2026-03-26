@@ -169,17 +169,17 @@ export default function Layout({ children }: LayoutProps) {
             }
           >
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
               style={{ background: "var(--gradient-primary)" }}
             >
-              JP
+              AR
             </div>
             <div className="flex-1 min-w-0">
               <p
                 className="text-sm font-medium truncate"
                 style={{ color: "hsl(var(--sidebar-foreground))" }}
               >
-                John Patel
+                Ashwin Raaj
               </p>
               <p className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
                 Pro Investor
