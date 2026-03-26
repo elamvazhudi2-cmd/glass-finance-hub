@@ -34,8 +34,8 @@ const PIE_COLORS = [
 
 const PERF_DATA = Array.from({ length: 12 }, (_, i) => ({
   label: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][i],
-  value: 82000 + i * 3600 + Math.sin(i / 2) * 4000,
-  secondary: 82000 + i * 1800,
+  value: Math.round((82000 + i * 3600 + Math.sin(i / 2) * 4000) * 83.47),
+  secondary: Math.round((82000 + i * 1800) * 83.47),
 }));
 
 export default function PortfolioManager() {
@@ -133,7 +133,7 @@ export default function PortfolioManager() {
             secondaryColor="hsl(258, 85%, 62%)"
             primaryLabel="Portfolio"
             secondaryLabel="Benchmark"
-            prefix="$"
+            prefix="₹"
             showTimeRanges={false}
             height={220}
           />
