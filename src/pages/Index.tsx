@@ -5,10 +5,10 @@ import InteractiveDataChart from "@/components/InteractiveDataChart";
 import { Link } from "react-router-dom";
 
 const TOP_ASSETS: AssetData[] = [
-  { symbol: "AAPL", name: "Apple Inc.", price: "$189.30", change: 1.24, volume: "52.3M", marketCap: "$2.94T", type: "stock", icon: "🍎", sparkline: [180,182,179,185,187,184,189] },
-  { symbol: "TSLA", name: "Tesla Inc.", price: "$248.50", change: -1.92, volume: "89.1M", marketCap: "$790B", type: "stock", icon: "⚡", sparkline: [255,258,251,249,252,246,248] },
-  { symbol: "BTC", name: "Bitcoin", price: "$67,420", change: 2.34, volume: "$28.1B", marketCap: "$1.33T", type: "crypto", icon: "₿", sparkline: [64200,65100,63800,66200,67800,66900,67420] },
-  { symbol: "ETH", name: "Ethereum", price: "$3,842", change: 1.78, volume: "$12.4B", marketCap: "$461B", type: "crypto", icon: "Ξ", sparkline: [3650,3700,3620,3780,3850,3810,3842] },
+  { symbol: "AAPL", name: "Apple Inc.", price: "₹15,800", change: 1.24, volume: "52.3M", marketCap: "₹2,45,46,180 Cr", type: "stock", icon: "🍎", sparkline: [15030,15197,14947,15447,15614,15364,15800] },
+  { symbol: "TSLA", name: "Tesla Inc.", price: "₹20,737", change: -1.92, volume: "89.1M", marketCap: "₹65,941 Cr", type: "stock", icon: "⚡", sparkline: [21293,21543,20960,20793,21044,20544,20737] },
+  { symbol: "BTC", name: "Bitcoin", price: "₹56,27,317", change: 2.34, volume: "₹2,34,716 Cr", marketCap: "₹1,11,01,110 Cr", type: "crypto", icon: "₿", sparkline: [53583,54317,53235,55250,56570,55827,56273] },
+  { symbol: "ETH", name: "Ethereum", price: "₹3,20,718", change: 1.78, volume: "₹1,03,545 Cr", marketCap: "₹38,471 Cr", type: "crypto", icon: "Ξ", sparkline: [30479,30895,30228,31558,32151,31818,32072] },
 ];
 
 const PORTFOLIO_DATA = [
@@ -27,17 +27,17 @@ const PORTFOLIO_DATA = [
 ];
 
 const STAT_CARDS = [
-  { label: "Portfolio Value", value: "$1,24,580", change: "+12.4%", positive: true, icon: DollarSign, color: "hsl(var(--primary))" },
-  { label: "Total Gain/Loss", value: "+$13,840", change: "This Month", positive: true, icon: TrendingUp, color: "hsl(var(--gain))" },
+  { label: "Portfolio Value", value: "₹1,03,97,213", change: "+12.4%", positive: true, icon: DollarSign, color: "hsl(var(--primary))" },
+  { label: "Total Gain/Loss", value: "+₹11,55,001", change: "This Month", positive: true, icon: TrendingUp, color: "hsl(var(--gain))" },
   { label: "Active Positions", value: "24", change: "8 Sectors", positive: true, icon: BarChart2, color: "hsl(var(--accent))" },
   { label: "Risk Score", value: "Moderate", change: "6.2/10", positive: true, icon: Activity, color: "hsl(var(--secondary))" },
 ];
 
 const RECENT_ACTIVITY = [
-  { action: "Bought", symbol: "NVDA", qty: "10 shares", amount: "+$8,754", time: "2h ago", positive: true },
-  { action: "Sold", symbol: "META", qty: "5 shares", amount: "-$2,635", time: "5h ago", positive: false },
-  { action: "Dividend", symbol: "AAPL", qty: "Q4 Payout", amount: "+$142", time: "1d ago", positive: true },
-  { action: "Bought", symbol: "BTC", qty: "0.05 BTC", amount: "+$3,371", time: "2d ago", positive: true },
+  { action: "Bought", symbol: "NVDA", qty: "10 shares", amount: "+₹7,30,773", time: "2h ago", positive: true },
+  { action: "Sold", symbol: "META", qty: "5 shares", amount: "-₹2,19,944", time: "5h ago", positive: false },
+  { action: "Dividend", symbol: "AAPL", qty: "Q4 Payout", amount: "+₹11,852", time: "1d ago", positive: true },
+  { action: "Bought", symbol: "BTC", qty: "0.05 BTC", amount: "+₹2,81,299", time: "2d ago", positive: true },
 ];
 
 export default function Dashboard() {
@@ -59,7 +59,7 @@ export default function Dashboard() {
       {/* Header */}
       <div className="page-header flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="page-title">Good Morning, John 👋</h1>
+          <h1 className="page-title">Good Morning, Ashwin 👋</h1>
           <p className="page-subtitle">Your portfolio is performing +12.4% this year</p>
         </div>
         <div className="flex gap-3">

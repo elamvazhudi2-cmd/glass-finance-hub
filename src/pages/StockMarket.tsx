@@ -4,13 +4,13 @@ import GlassAssetCard, { AssetData } from "@/components/GlassAssetCard";
 import InteractiveDataChart from "@/components/InteractiveDataChart";
 
 const ALL_STOCKS: AssetData[] = [
-  { symbol: "AAPL", name: "Apple Inc.", price: "$189.30", change: 1.24, volume: "52.3M", marketCap: "$2.94T", type: "stock", icon: "🍎", sparkline: [180,182,179,185,187,184,189] },
-  { symbol: "MSFT", name: "Microsoft Corp.", price: "$415.22", change: -0.38, volume: "18.7M", marketCap: "$3.08T", type: "stock", icon: "🪟", sparkline: [418,416,419,415,417,413,415] },
-  { symbol: "GOOGL", name: "Alphabet Inc.", price: "$175.43", change: 2.11, volume: "22.1M", marketCap: "$2.19T", type: "stock", icon: "🔍", sparkline: [168,170,167,171,174,172,175] },
-  { symbol: "AMZN", name: "Amazon.com", price: "$198.71", change: 0.87, volume: "34.5M", marketCap: "$2.07T", type: "stock", icon: "📦", sparkline: [193,195,192,196,198,197,199] },
-  { symbol: "TSLA", name: "Tesla Inc.", price: "$248.50", change: -1.92, volume: "89.1M", marketCap: "$790B", type: "stock", icon: "⚡", sparkline: [255,258,251,249,252,246,248] },
-  { symbol: "NVDA", name: "NVIDIA Corp.", price: "$875.39", change: 3.45, volume: "41.2M", marketCap: "$2.15T", type: "stock", icon: "💚", sparkline: [830,845,822,858,870,865,875] },
-  { symbol: "META", name: "Meta Platforms", price: "$527.14", change: 0.63, volume: "12.8M", marketCap: "$1.34T", type: "stock", icon: "🔵", sparkline: [520,523,518,524,527,526,527] },
+  { symbol: "AAPL", name: "Apple Inc.", price: "₹15,800", change: 1.24, volume: "52.3M", marketCap: "₹2,45,402 Cr", type: "stock", icon: "🍎", sparkline: [15030,15197,14947,15447,15614,15364,15800] },
+  { symbol: "MSFT", name: "Microsoft Corp.", price: "₹34,658", change: -0.38, volume: "18.7M", marketCap: "₹2,57,088 Cr", type: "stock", icon: "🪟", sparkline: [34909,34742,34993,34657,34824,34408,34658] },
+  { symbol: "GOOGL", name: "Alphabet Inc.", price: "₹14,645", change: 2.11, volume: "22.1M", marketCap: "₹1,82,797 Cr", type: "stock", icon: "🔍", sparkline: [14023,14190,13938,14273,14524,14356,14645] },
+  { symbol: "AMZN", name: "Amazon.com", price: "₹16,583", change: 0.87, volume: "34.5M", marketCap: "₹1,72,740 Cr", type: "stock", icon: "📦", sparkline: [16101,16268,16018,16351,16517,16434,16583] },
+  { symbol: "TSLA", name: "Tesla Inc.", price: "₹20,737", change: -1.92, volume: "89.1M", marketCap: "₹65,941 Cr", type: "stock", icon: "⚡", sparkline: [21293,21543,20960,20793,21044,20544,20737] },
+  { symbol: "NVDA", name: "NVIDIA Corp.", price: "₹73,077", change: 3.45, volume: "41.2M", marketCap: "₹1,79,460 Cr", type: "stock", icon: "💚", sparkline: [69284,70543,68628,71614,72637,72220,73077] },
+  { symbol: "META", name: "Meta Platforms", price: "₹43,999", change: 0.63, volume: "12.8M", marketCap: "₹1,11,837 Cr", type: "stock", icon: "🔵", sparkline: [43415,43665,43248,43748,44000,43915,43999] },
   { symbol: "RELIANCE", name: "Reliance Ind.", price: "₹2,948", change: 1.13, volume: "8.2M", marketCap: "₹19.9L Cr", type: "stock", icon: "🛢️", sparkline: [2880,2900,2870,2920,2940,2930,2948] },
   { symbol: "TCS", name: "Tata Consultancy", price: "₹3,851", change: -0.29, volume: "3.1M", marketCap: "₹14.0L Cr", type: "stock", icon: "💻", sparkline: [3870,3860,3880,3855,3845,3858,3851] },
   { symbol: "INFY", name: "Infosys Ltd.", price: "₹1,782", change: 0.74, volume: "5.4M", marketCap: "₹7.4L Cr", type: "stock", icon: "🏢", sparkline: [1760,1765,1755,1770,1778,1780,1782] },
@@ -96,13 +96,13 @@ export default function StockMarket() {
 
         {/* Stats panel */}
         <div className="space-y-4">
-          {[
+        {[
             { label: "Volume", value: selected.volume || "—" },
             { label: "Market Cap", value: selected.marketCap || "—" },
             { label: "52W High", value: `+${(Math.random()*20+5).toFixed(1)}%` },
             { label: "52W Low", value: `-${(Math.random()*15+5).toFixed(1)}%` },
             { label: "P/E Ratio", value: (Math.random()*30+10).toFixed(1) },
-            { label: "EPS", value: `$${(Math.random()*10+1).toFixed(2)}` },
+            { label: "EPS", value: `₹${(Math.random()*835+83).toFixed(2)}` },
           ].map((s, i) => (
             <div key={i} className="glass-card-sm flex justify-between items-center">
               <span className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>

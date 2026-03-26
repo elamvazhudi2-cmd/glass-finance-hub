@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Gem, Heart, ExternalLink, Search } from "lucide-react";
 
+const ETH_INR = 320718; // 1 ETH ≈ ₹3,20,718
+const fmtInr = (eth: number) => `₹${(eth * ETH_INR).toLocaleString("en-IN")}`;
+
 const NFTS = [
-  { id: 1, name: "CryptoPunk #3100", collection: "CryptoPunks", price: "96.25 ETH", usd: "$369,600", creator: "Larva Labs", img: "🤖", rarity: "Legendary", liked: false, category: "Art" },
-  { id: 2, name: "Bored Ape #7090", collection: "BAYC", price: "82.00 ETH", usd: "$314,900", creator: "Yuga Labs", img: "🦍", rarity: "Rare", liked: true, category: "PFP" },
-  { id: 3, name: "Azuki #1012", collection: "Azuki", price: "18.5 ETH", usd: "$71,055", creator: "Chiru Labs", img: "🌸", rarity: "Uncommon", liked: false, category: "Art" },
-  { id: 4, name: "Pudgy Penguin #6458", collection: "Pudgy Penguins", price: "12.8 ETH", usd: "$49,152", creator: "Nolan", img: "🐧", rarity: "Common", liked: false, category: "PFP" },
-  { id: 5, name: "DeGod #2136", collection: "DeGods", price: "22.4 ETH", usd: "$86,016", creator: "DeGods", img: "👁️", rarity: "Rare", liked: true, category: "Art" },
-  { id: 6, name: "World of Women #394", collection: "WoW", price: "8.75 ETH", usd: "$33,600", creator: "Yam Karkai", img: "🎨", rarity: "Uncommon", liked: false, category: "Art" },
-  { id: 7, name: "Doodle #6914", collection: "Doodles", price: "5.60 ETH", usd: "$21,504", creator: "Evan Keast", img: "🌈", rarity: "Common", liked: false, category: "Art" },
-  { id: 8, name: "Clone X #17043", collection: "Clone X", price: "14.2 ETH", usd: "$54,528", creator: "RTFKT", img: "🤖", rarity: "Rare", liked: false, category: "Metaverse" },
+  { id: 1, name: "CryptoPunk #3100", collection: "CryptoPunks", price: "96.25 ETH", usd: fmtInr(96.25), creator: "Larva Labs", img: "🤖", rarity: "Legendary", liked: false, category: "Art" },
+  { id: 2, name: "Bored Ape #7090", collection: "BAYC", price: "82.00 ETH", usd: fmtInr(82.00), creator: "Yuga Labs", img: "🦍", rarity: "Rare", liked: true, category: "PFP" },
+  { id: 3, name: "Azuki #1012", collection: "Azuki", price: "18.5 ETH", usd: fmtInr(18.5), creator: "Chiru Labs", img: "🌸", rarity: "Uncommon", liked: false, category: "Art" },
+  { id: 4, name: "Pudgy Penguin #6458", collection: "Pudgy Penguins", price: "12.8 ETH", usd: fmtInr(12.8), creator: "Nolan", img: "🐧", rarity: "Common", liked: false, category: "PFP" },
+  { id: 5, name: "DeGod #2136", collection: "DeGods", price: "22.4 ETH", usd: fmtInr(22.4), creator: "DeGods", img: "👁️", rarity: "Rare", liked: true, category: "Art" },
+  { id: 6, name: "World of Women #394", collection: "WoW", price: "8.75 ETH", usd: fmtInr(8.75), creator: "Yam Karkai", img: "🎨", rarity: "Uncommon", liked: false, category: "Art" },
+  { id: 7, name: "Doodle #6914", collection: "Doodles", price: "5.60 ETH", usd: fmtInr(5.60), creator: "Evan Keast", img: "🌈", rarity: "Common", liked: false, category: "Art" },
+  { id: 8, name: "Clone X #17043", collection: "Clone X", price: "14.2 ETH", usd: fmtInr(14.2), creator: "RTFKT", img: "🤖", rarity: "Rare", liked: false, category: "Metaverse" },
 ];
 
 const CATEGORIES = ["All", "Art", "PFP", "Metaverse", "Gaming"];
@@ -36,7 +39,7 @@ export default function NFTMarketplace() {
   );
 
   const STATS = [
-    { label: "Total Volume", value: "$842M", icon: "💎" },
+    { label: "Total Volume", value: "₹70,261 Cr", icon: "💎" },
     { label: "Collections", value: "14,280", icon: "🗂️" },
     { label: "Traders (24h)", value: "48,312", icon: "👤" },
     { label: "Avg Price", value: "2.4 ETH", icon: "📈" },

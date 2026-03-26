@@ -13,11 +13,12 @@ interface Holding {
   type: "stock" | "crypto" | "fd" | "mf";
 }
 
+const USD_INR = 83.47;
 const INITIAL: Holding[] = [
-  { id: 1, symbol: "AAPL", name: "Apple Inc.", qty: 15, avgPrice: 155, cmp: 189.30, type: "stock" },
-  { id: 2, symbol: "NVDA", name: "NVIDIA Corp.", qty: 8, avgPrice: 650, cmp: 875.39, type: "stock" },
-  { id: 3, symbol: "BTC", name: "Bitcoin", qty: 0.12, avgPrice: 52000, cmp: 67420, type: "crypto" },
-  { id: 4, symbol: "ETH", name: "Ethereum", qty: 2.5, avgPrice: 2800, cmp: 3842, type: "crypto" },
+  { id: 1, symbol: "AAPL", name: "Apple Inc.", qty: 15, avgPrice: Math.round(155 * USD_INR), cmp: Math.round(189.30 * USD_INR), type: "stock" },
+  { id: 2, symbol: "NVDA", name: "NVIDIA Corp.", qty: 8, avgPrice: Math.round(650 * USD_INR), cmp: Math.round(875.39 * USD_INR), type: "stock" },
+  { id: 3, symbol: "BTC", name: "Bitcoin", qty: 0.12, avgPrice: Math.round(52000 * USD_INR), cmp: Math.round(67420 * USD_INR), type: "crypto" },
+  { id: 4, symbol: "ETH", name: "Ethereum", qty: 2.5, avgPrice: Math.round(2800 * USD_INR), cmp: Math.round(3842 * USD_INR), type: "crypto" },
   { id: 5, symbol: "RELIANCE", name: "Reliance Ind.", qty: 30, avgPrice: 2650, cmp: 2948, type: "stock" },
   { id: 6, symbol: "HDFC Flexi", name: "HDFC Flexi Cap", qty: 500, avgPrice: 48, cmp: 64.2, type: "mf" },
 ];
@@ -33,8 +34,8 @@ const PIE_COLORS = [
 
 const PERF_DATA = Array.from({ length: 12 }, (_, i) => ({
   label: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][i],
-  value: 82000 + i * 3600 + Math.sin(i / 2) * 4000,
-  secondary: 82000 + i * 1800,
+  value: Math.round((82000 + i * 3600 + Math.sin(i / 2) * 4000) * 83.47),
+  secondary: Math.round((82000 + i * 1800) * 83.47),
 }));
 
 export default function PortfolioManager() {
@@ -51,7 +52,7 @@ export default function PortfolioManager() {
   }));
 
   const fmt = (n: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(n);
+    "₹" + new Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 }).format(n);
 
   return (
     <div className="page-container animate-fade-in">
@@ -132,7 +133,7 @@ export default function PortfolioManager() {
             secondaryColor="hsl(258, 85%, 62%)"
             primaryLabel="Portfolio"
             secondaryLabel="Benchmark"
-            prefix="$"
+            prefix="₹"
             showTimeRanges={false}
             height={220}
           />
@@ -176,8 +177,8 @@ export default function PortfolioManager() {
                     </td>
                     <td className="py-3 pr-4 text-sm" style={{ color: "hsl(var(--foreground))" }}>{h.name}</td>
                     <td className="py-3 pr-4 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>{h.qty}</td>
-                    <td className="py-3 pr-4 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>${h.avgPrice.toLocaleString()}</td>
-                    <td className="py-3 pr-4 text-sm font-semibold" style={{ color: "hsl(var(--foreground))" }}>${h.cmp.toLocaleString()}</td>
+                    <td className="py-3 pr-4 text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>₹{h.avgPrice.toLocaleString("en-IN")}</td>
+                    <td className="py-3 pr-4 text-sm font-semibold" style={{ color: "hsl(var(--foreground))" }}>₹{h.cmp.toLocaleString("en-IN")}</td>
                     <td className="py-3 pr-4 text-sm font-semibold" style={{ color: "hsl(var(--foreground))" }}>{fmt(val)}</td>
                     <td className="py-3 pr-4">
                       <span style={{ color: pl >= 0 ? "hsl(var(--gain))" : "hsl(var(--loss))" }} className="text-sm font-semibold flex items-center gap-1">
