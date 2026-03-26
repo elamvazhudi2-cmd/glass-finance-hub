@@ -12,8 +12,8 @@ const ACHIEVEMENTS = [
 
 export default function UserProfile() {
   const [editing, setEditing] = useState(false);
-  const [name, setName] = useState("John Patel");
-  const [email, setEmail] = useState("john.patel@example.com");
+  const [name, setName] = useState("Ashwin Raaj");
+  const [email, setEmail] = useState("ashwin.raaj@example.com");
   const [phone, setPhone] = useState("+91 98765 43210");
   const [notifications, setNotifications] = useState({ price: true, news: true, portfolio: false });
 
@@ -28,7 +28,7 @@ export default function UserProfile() {
         <div className="space-y-4">
           <div className="glass-card text-center">
             <div className="w-20 h-20 rounded-full mx-auto mb-3 flex items-center justify-center text-2xl font-bold"
-              style={{ background: "var(--gradient-primary)" }}>JP</div>
+              style={{ background: "var(--gradient-primary)" }}>AR</div>
             <h2 className="text-lg font-bold" style={{ color: "hsl(var(--foreground))" }}>{name}</h2>
             <p className="text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>{email}</p>
             <span className="badge-gain mt-2 inline-flex">✦ Pro Investor</span>

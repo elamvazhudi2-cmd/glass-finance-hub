@@ -3,25 +3,28 @@ import { Search, Bitcoin, TrendingUp, TrendingDown } from "lucide-react";
 import GlassAssetCard, { AssetData } from "@/components/GlassAssetCard";
 import InteractiveDataChart from "@/components/InteractiveDataChart";
 
+const USD_TO_INR = 83.47;
+const inr = (usd: number) => `₹${Math.round(usd * USD_TO_INR).toLocaleString("en-IN")}`;
+
 const CRYPTOS: AssetData[] = [
-  { symbol: "BTC", name: "Bitcoin", price: "$67,420", change: 2.34, volume: "$28.1B", marketCap: "$1.33T", type: "crypto", icon: "₿", sparkline: [64200,65100,63800,66200,67800,66900,67420] },
-  { symbol: "ETH", name: "Ethereum", price: "$3,842", change: 1.78, volume: "$12.4B", marketCap: "$461B", type: "crypto", icon: "Ξ", sparkline: [3650,3700,3620,3780,3850,3810,3842] },
-  { symbol: "SOL", name: "Solana", price: "$182.50", change: 4.12, volume: "$3.8B", marketCap: "$81B", type: "crypto", icon: "◎", sparkline: [168,172,165,175,180,179,182] },
-  { symbol: "BNB", name: "BNB Chain", price: "$612.30", change: -0.84, volume: "$1.9B", marketCap: "$89B", type: "crypto", icon: "🔶", sparkline: [620,618,622,615,610,614,612] },
-  { symbol: "ADA", name: "Cardano", price: "$0.624", change: 3.21, volume: "$892M", marketCap: "$22B", type: "crypto", icon: "🔵", sparkline: [0.59,0.60,0.58,0.61,0.62,0.621,0.624] },
-  { symbol: "AVAX", name: "Avalanche", price: "$42.18", change: -1.45, volume: "$512M", marketCap: "$17B", type: "crypto", icon: "🔺", sparkline: [43.5,43.1,43.8,42.5,41.8,42.3,42.18] },
-  { symbol: "MATIC", name: "Polygon", price: "$0.994", change: 2.67, volume: "$398M", marketCap: "$9.8B", type: "crypto", icon: "🟣", sparkline: [0.96,0.97,0.95,0.98,0.99,0.991,0.994] },
-  { symbol: "DOT", name: "Polkadot", price: "$9.87", change: 1.34, volume: "$283M", marketCap: "$13B", type: "crypto", icon: "⚪", sparkline: [9.6,9.7,9.55,9.75,9.82,9.85,9.87] },
+  { symbol: "BTC", name: "Bitcoin", price: inr(67420), change: 2.34, volume: "₹2,34,716 Cr", marketCap: "₹1,11,01,110 Cr", type: "crypto", icon: "₿", sparkline: [5357574,5432249,5322486,5524514,5658066,5582513,5627317] },
+  { symbol: "ETH", name: "Ethereum", price: inr(3842), change: 1.78, volume: "₹1,03,545 Cr", marketCap: "₹38,471 Cr", type: "crypto", icon: "Ξ", sparkline: [304645,308890,302155,315491,321409,318165,320740] },
+  { symbol: "SOL", name: "Solana", price: inr(182.50), change: 4.12, volume: "₹31,719 Cr", marketCap: "₹6,761 Cr", type: "crypto", icon: "◎", sparkline: [14023,14357,13776,14607,15026,14940,15233] },
+  { symbol: "BNB", name: "BNB Chain", price: inr(612.30), change: -0.84, volume: "₹15,859 Cr", marketCap: "₹7,429 Cr", type: "crypto", icon: "🔶", sparkline: [51752,51585,51919,51334,50900,51251,51118] },
+  { symbol: "ADA", name: "Cardano", price: inr(0.624), change: 3.21, volume: "₹7,446 Cr", marketCap: "₹1,836 Cr", type: "crypto", icon: "🔵", sparkline: [49,50,48,51,52,52,52] },
+  { symbol: "AVAX", name: "Avalanche", price: inr(42.18), change: -1.45, volume: "₹4,274 Cr", marketCap: "₹1,419 Cr", type: "crypto", icon: "🔺", sparkline: [3630,3596,3655,3548,3490,3530,3520] },
+  { symbol: "MATIC", name: "Polygon", price: inr(0.994), change: 2.67, volume: "₹3,322 Cr", marketCap: "₹818 Cr", type: "crypto", icon: "🟣", sparkline: [80,81,79,82,83,83,83] },
+  { symbol: "DOT", name: "Polkadot", price: inr(9.87), change: 1.34, volume: "₹2,362 Cr", marketCap: "₹1,085 Cr", type: "crypto", icon: "⚪", sparkline: [801,810,797,814,820,822,824] },
 ];
 
 const BTC_CHART = Array.from({ length: 30 }, (_, i) => ({
   label: `Day ${i + 1}`,
-  value: 60000 + Math.sin(i / 4) * 4000 + i * 200 + Math.random() * 1000,
+  value: Math.round((60000 + Math.sin(i / 4) * 4000 + i * 200 + Math.random() * 1000) * USD_TO_INR),
 }));
 
 const MARKET_STATS = [
-  { label: "Total Mkt Cap", value: "$2.61T", change: "+1.8%", positive: true },
-  { label: "24h Volume", value: "$98.4B", change: "+5.2%", positive: true },
+  { label: "Total Mkt Cap", value: "₹2,17,85,670 Cr", change: "+1.8%", positive: true },
+  { label: "24h Volume", value: "₹8,21,346 Cr", change: "+5.2%", positive: true },
   { label: "BTC Dominance", value: "51.2%", change: "-0.3%", positive: false },
   { label: "Fear & Greed", value: "72 — Greed", change: "Bullish", positive: true },
 ];
@@ -115,8 +118,8 @@ export default function CryptoExplorer() {
               { label: "24h Volume", value: selected.volume },
               { label: "Market Cap", value: selected.marketCap },
               { label: "Circulating Supply", value: "19.7M BTC" },
-              { label: "All-Time High", value: "$73,737" },
-              { label: "All-Time Low", value: "$67.81" },
+              { label: "All-Time High", value: `₹${(73737 * 83.47).toLocaleString("en-IN")}` },
+              { label: "All-Time Low", value: `₹${(67.81 * 83.47).toFixed(2)}` },
             ].map((d, i) => (
               <div key={i} className="flex justify-between py-2" style={{ borderBottom: "1px solid hsl(var(--border))" }}>
                 <span className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>
