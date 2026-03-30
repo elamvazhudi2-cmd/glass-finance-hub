@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage your account & preferences - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>User Profile | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">User Profile</h1>
+                    <p class="page-subtitle">Manage your account & preferences</p>
+                </div>
+
+                <div class="grid-1-2">
+                    <div>
+                        <div class="glass-card" style="text-align:center">
+                            <div style="width:80px;height:80px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin:0 auto 12px;color:var(--bg-dark)">AR</div>
+                            <h2 style="font-size:18px">Ashwin Raaj</h2>
+                            <p style="color:var(--text-muted);font-size:14px">ashwin.raaj@example.com</p>
+                            <span class="badge-gain" style="margin-top:8px">✦ Pro Investor</span>
+                            <div class="grid-3" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-color)">
+                                <div><p style="font-size:18px;font-weight:700">24</p><p style="color:var(--text-muted);font-size:11px">Holdings</p></div>
+                                <div><p style="font-size:18px;font-weight:700">12</p><p style="color:var(--text-muted);font-size:11px">Watchlist</p></div>
+                                <div><p style="font-size:18px;font-weight:700">7</p><p style="color:var(--text-muted);font-size:11px">Alerts</p></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card" style="margin-top:16px">
+                            <h3 style="font-size:14px;margin-bottom:12px;color:var(--gold)">🏆 Achievements</h3>
+                            <div class="grid-3">
+                                <div style="text-align:center;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03)"><p style="font-size:20px">🥇</p><p style="font-size:11px;color:var(--text-muted)">1st Trade</p></div>
+                                <div style="text-align:center;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03)"><p style="font-size:20px">📊</p><p style="font-size:11px;color:var(--text-muted)">Pro</p></div>
+                                <div style="text-align:center;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03)"><p style="font-size:20px">🎯</p><p style="font-size:11px;color:var(--text-muted)">Goal Setter</p></div>
+                                <div style="text-align:center;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03);opacity:0.4"><p style="font-size:20px">📚</p><p style="font-size:11px;color:var(--text-muted)">Scholar</p></div>
+                                <div style="text-align:center;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03);opacity:0.4"><p style="font-size:20px">💎</p><p style="font-size:11px;color:var(--text-muted)">Diamond</p></div>
+                                <div style="text-align:center;padding:8px;border-radius:12px;background:rgba(255,255,255,0.03);opacity:0.4"><p style="font-size:20px">🚀</p><p style="font-size:11px;color:var(--text-muted)">10x</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="glass-card" style="margin-bottom:16px">
+                            <h3 style="font-size:16px;margin-bottom:20px">👤 Personal Information</h3>
+                            <div class="grid-2">
+                                <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">Full Name</label><p style="background:rgba(255,255,255,0.03);padding:10px 16px;border-radius:12px;font-size:14px">Ashwin Raaj</p></div>
+                                <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">Email</label><p style="background:rgba(255,255,255,0.03);padding:10px 16px;border-radius:12px;font-size:14px">ashwin.raaj@example.com</p></div>
+                                <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">Phone</label><p style="background:rgba(255,255,255,0.03);padding:10px 16px;border-radius:12px;font-size:14px">+91 98765 43210</p></div>
+                                <div><label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">PAN Card</label><p style="background:rgba(255,255,255,0.03);padding:10px 16px;border-radius:12px;font-size:14px">ABCDE1234F</p></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card">
+                            <h3 style="font-size:16px;margin-bottom:16px">🔒 Security</h3>
+                            <div>
+                                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-color)"><span>Two-Factor Auth</span><span class="badge-gain">Enabled</span></div>
+                                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-color)"><span>Last Login</span><span class="badge-gain">Today, 9:42 AM</span></div>
+                                <div style="display:flex;justify-content:space-between;padding:12px 0"><span>Password Strength</span><span class="badge-gain">Strong</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

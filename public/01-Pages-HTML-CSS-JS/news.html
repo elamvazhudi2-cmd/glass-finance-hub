@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curated financial news with market impact - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Market News & Insights | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Market News & Insights</h1>
+                    <p class="page-subtitle">Curated financial news with market impact</p>
+                </div>
+
+                <div class="search-box" style="margin-bottom:24px">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search news, topics..." oninput="filterNews(this.value)">
+                </div>
+                <div id="news-grid" class="grid-2"></div>
+                <script>
+                    var newsItems = [
+                        { title: "Fed Signals Rate Cuts in 2025", cat: "Macro", time: "2h ago", source: "Reuters", summary: "Federal Reserve indicated readiness to cut rates as inflation declines.", impact: "positive" },
+                        { title: "NVIDIA Surpasses $2T Market Cap", cat: "Tech", time: "4h ago", source: "Bloomberg", summary: "NVIDIA becomes third company to surpass $2T market cap.", impact: "positive" },
+                        { title: "Bitcoin ETF Record $1.2B Inflow", cat: "Crypto", time: "5h ago", source: "CoinDesk", summary: "Spot Bitcoin ETFs see highest single-day inflow.", impact: "positive" },
+                        { title: "Sensex Surges 800 Points", cat: "India", time: "6h ago", source: "ET Markets", summary: "Indian markets rally on banking and IT stocks.", impact: "positive" },
+                        { title: "Oil Prices Slide on OPEC+", cat: "Commodities", time: "8h ago", source: "CNBC", summary: "Crude fell 2.3% after OPEC+ output increase reports.", impact: "negative" },
+                        { title: "RBI Holds Rates at 6.5%", cat: "India", time: "1d ago", source: "LiveMint", summary: "RBI maintained repo rate for seventh consecutive time.", impact: "neutral" }
+                    ];
+
+                    function renderNews(items) {
+                        var html = "";
+                        for (var i = 0; i < items.length; i++) {
+                            var n = items[i];
+                            var dotColor = n.impact === "positive" ? "var(--green)" : n.impact === "negative" ? "var(--red)" : "var(--text-muted)";
+                            html += '<article class="glass-card" style="cursor:pointer">';
+                            html += '  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
+                            html += '    <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:' + dotColor + '"></span>';
+                            html += '    <span style="font-size:12px;color:var(--accent)">' + n.cat + '</span>';
+                            html += '    <span style="font-size:12px;color:var(--text-muted)">· ' + n.time + '</span>';
+                            html += '  </div>';
+                            html += '  <h3 style="font-size:16px;margin-bottom:8px">' + n.title + '</h3>';
+                            html += '  <p style="font-size:13px;color:var(--text-muted);line-height:1.6">' + n.summary + '</p>';
+                            html += '  <p style="font-size:12px;color:var(--accent);margin-top:12px">' + n.source + '</p>';
+                            html += '</article>';
+                        }
+                        document.getElementById("news-grid").innerHTML = html;
+                    }
+
+                    function filterNews(query) {
+                        var filtered = newsItems.filter(function(n) {
+                            return n.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 || n.summary.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+                        });
+                        renderNews(filtered);
+                    }
+
+                    renderNews(newsItems);
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

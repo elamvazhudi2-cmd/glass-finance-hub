@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live equities · Track Indian & US stocks - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Stock Market Tracker | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Stock Market Tracker</h1>
+                    <p class="page-subtitle">Live equities · Track Indian & US stocks</p>
+                </div>
+
+                <!-- Search & Filters - onSearch event handler -->
+                <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+                    <div class="search-box" style="flex:1;min-width:200px">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="stock-search" placeholder="Search stocks, symbols..." oninput="filterStocks()">
+                    </div>
+                    <div class="filter-group" id="sector-filters">
+                        <!-- Sector filters built by JS -->
+                    </div>
+                </div>
+
+                <!-- Stock Cards Grid -->
+                <div class="grid-3" id="stock-grid">
+                    <!-- Injected by JS -->
+                </div>
+
+                <script>
+                    var allStocks = [
+                        { symbol: "AAPL", name: "Apple Inc.", price: "₹15,800", change: 1.24, volume: "52.3M", icon: "🍎", sector: "Technology" },
+                        { symbol: "MSFT", name: "Microsoft Corp.", price: "₹34,652", change: -0.38, volume: "28.7M", icon: "🪟", sector: "Technology" },
+                        { symbol: "GOOGL", name: "Alphabet Inc.", price: "₹14,642", change: 2.11, volume: "18.9M", icon: "🔍", sector: "Technology" },
+                        { symbol: "TSLA", name: "Tesla Inc.", price: "₹20,737", change: -1.92, volume: "89.1M", icon: "⚡", sector: "Consumer" },
+                        { symbol: "RELIANCE", name: "Reliance Ind.", price: "₹2,948", change: 1.13, volume: "8.2M", icon: "🛢️", sector: "Energy" },
+                        { symbol: "TCS", name: "Tata Consultancy", price: "₹3,851", change: -0.29, volume: "3.1M", icon: "💻", sector: "Technology" },
+                        { symbol: "INFY", name: "Infosys Ltd.", price: "₹1,782", change: 0.74, volume: "5.4M", icon: "🏢", sector: "Technology" },
+                        { symbol: "HDFC", name: "HDFC Bank", price: "₹1,624", change: -0.55, volume: "7.8M", icon: "🏦", sector: "Finance" },
+                        { symbol: "NVDA", name: "NVIDIA Corp.", price: "₹73,060", change: 3.45, volume: "42.3M", icon: "💚", sector: "Technology" }
+                    ];
+
+                    var currentSector = "All";
+                    var sectors = ["All", "Technology", "Finance", "Energy", "Consumer"];
+
+                    // Build sector filter buttons
+                    var filterHtml = "";
+                    for (var i = 0; i < sectors.length; i++) {
+                        var activeClass = sectors[i] === "All" ? " active" : "";
+                        filterHtml += '<button class="filter-btn' + activeClass + '" onclick="setSector(\'' + sectors[i] + '\')">' + sectors[i] + '</button>';
+                    }
+                    document.getElementById("sector-filters").innerHTML = filterHtml;
+
+                    // onSearch event handler - filters stocks in real time
+                    function filterStocks() {
+                        var query = document.getElementById("stock-search").value.toLowerCase();
+                        var filtered = allStocks.filter(function(s) {
+                            var matchesSearch = s.symbol.toLowerCase().indexOf(query) !== -1 ||
+                                                s.name.toLowerCase().indexOf(query) !== -1;
+                            var matchesSector = currentSector === "All" || s.sector === currentSector;
+                            return matchesSearch && matchesSector;
+                        });
+                        renderStocks(filtered);
+                    }
+
+                    function setSector(sector) {
+                        currentSector = sector;
+                        // Update active button
+                        var buttons = document.querySelectorAll("#sector-filters .filter-btn");
+                        for (var i = 0; i < buttons.length; i++) {
+                            buttons[i].classList.remove("active");
+                            if (buttons[i].textContent === sector) buttons[i].classList.add("active");
+                        }
+                        filterStocks();
+                    }
+
+                    function renderStocks(stocks) {
+                        var container = document.getElementById("stock-grid");
+                        var html = "";
+                        for (var i = 0; i < stocks.length; i++) {
+                            var s = stocks[i];
+                            var badgeClass = s.change >= 0 ? "badge-gain" : "badge-loss";
+                            var sign = s.change >= 0 ? "+" : "";
+                            html += '<div class="glass-card" style="cursor:pointer" onclick="selectAsset(\'' + s.symbol + '\')">';
+                            html += '  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">';
+                            html += '    <span style="font-size:28px;background:var(--bg-card);padding:8px;border-radius:12px">' + s.icon + '</span>';
+                            html += '    <div>';
+                            html += '      <p style="font-weight:700;font-size:14px">' + s.symbol + '</p>';
+                            html += '      <p style="color:var(--text-muted);font-size:12px">' + s.name + '</p>';
+                            html += '    </div>';
+                            html += '  </div>';
+                            html += '  <p style="font-size:22px;font-weight:700;margin-bottom:8px">' + s.price + '</p>';
+                            html += '  <div style="display:flex;align-items:center;gap:12px">';
+                            html += '    <span class="' + badgeClass + '">' + sign + s.change.toFixed(2) + '%</span>';
+                            html += '    <span style="color:var(--text-muted);font-size:12px">Vol: ' + s.volume + '</span>';
+                            html += '  </div>';
+                            html += '</div>';
+                        }
+                        if (stocks.length === 0) {
+                            html = '<p style="color:var(--text-muted);text-align:center;grid-column:span 3;padding:60px 0">No stocks match your search.</p>';
+                        }
+                        container.innerHTML = html;
+                    }
+
+                    // onClick handler for asset selection
+                    function selectAsset(symbol) {
+                        var stock = allStocks.find(function(s) { return s.symbol === symbol; });
+                        alert("Selected: " + stock.name + "\nPrice: " + stock.price + "\nChange: " + (stock.change >= 0 ? "+" : "") + stock.change + "%\nVolume: " + stock.volume);
+                    }
+
+                    // Initial render
+                    renderStocks(allStocks);
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

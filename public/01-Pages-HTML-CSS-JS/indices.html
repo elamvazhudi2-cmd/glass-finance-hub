@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="World markets at a glance · Live quotes - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Global Indices | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Global Indices</h1>
+                    <p class="page-subtitle">World markets at a glance · Live quotes</p>
+                </div>
+
+                <div class="grid-4" style="margin-bottom:32px">
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">🟢</div><div class="stat-value">9/12</div><div class="stat-label">Markets Up</div></div>
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">📊</div><div class="stat-value">+0.37%</div><div class="stat-label">Avg Change</div></div>
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">🥇</div><div class="stat-value">Nikkei 225</div><div class="stat-label">Highest Gainer</div></div>
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">🐂</div><div class="stat-value">Bullish</div><div class="stat-label">Sentiment</div></div>
+                </div>
+
+                <div class="grid-3" id="indices-grid"></div>
+
+                <script>
+                    var indices = [
+                        { name: "S&P 500", country: "🇺🇸 USA", value: "5,321.41", change: 0.62 },
+                        { name: "NASDAQ 100", country: "🇺🇸 USA", value: "18,644.60", change: 1.14 },
+                        { name: "Dow Jones", country: "🇺🇸 USA", value: "39,387.76", change: 0.35 },
+                        { name: "NIFTY 50", country: "🇮🇳 India", value: "22,531.05", change: 0.45 },
+                        { name: "BSE SENSEX", country: "🇮🇳 India", value: "74,119.82", change: 0.52 },
+                        { name: "FTSE 100", country: "🇬🇧 UK", value: "8,317.59", change: -0.21 },
+                        { name: "DAX", country: "🇩🇪 Germany", value: "18,703.42", change: 0.84 },
+                        { name: "Nikkei 225", country: "🇯🇵 Japan", value: "38,405.66", change: 1.20 },
+                        { name: "Hang Seng", country: "🇭🇰 HK", value: "18,472.19", change: -0.73 }
+                    ];
+
+                    var html = "";
+                    for (var i = 0; i < indices.length; i++) {
+                        var idx = indices[i];
+                        var color = idx.change >= 0 ? "var(--green)" : "var(--red)";
+                        var sign = idx.change >= 0 ? "+" : "";
+                        var badge = idx.change >= 0 ? "badge-gain" : "badge-loss";
+                        html += '<div class="glass-card">';
+                        html += '  <div style="display:flex;justify-content:space-between;align-items:flex-start">';
+                        html += '    <div><p style="font-weight:700">' + idx.name + '</p><p style="color:var(--text-muted);font-size:12px">' + idx.country + '</p></div>';
+                        html += '    <div style="text-align:right"><p style="font-weight:700;font-size:18px">' + idx.value + '</p><span class="' + badge + '">' + sign + idx.change.toFixed(2) + '%</span></div>';
+                        html += '  </div>';
+                        html += '</div>';
+                    }
+                    document.getElementById("indices-grid").innerHTML = html;
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live crypto prices in INR - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Crypto Explorer | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Crypto Explorer</h1>
+                    <p class="page-subtitle">Live crypto prices in INR</p>
+                </div>
+
+                <div class="grid-4" style="margin-bottom:32px">
+                    <div class="glass-card-sm stat-card">
+                        <div class="stat-value">₹2,17,85,670 Cr</div>
+                        <div class="stat-label">Total Market Cap</div>
+                    </div>
+                    <div class="glass-card-sm stat-card">
+                        <div class="stat-value">₹8,21,346 Cr</div>
+                        <div class="stat-label">24h Volume</div>
+                    </div>
+                    <div class="glass-card-sm stat-card">
+                        <div class="stat-value">51.2%</div>
+                        <div class="stat-label">BTC Dominance</div>
+                    </div>
+                    <div class="glass-card-sm stat-card">
+                        <div class="stat-value">72 — Greed</div>
+                        <div class="stat-label">Fear & Greed</div>
+                    </div>
+                </div>
+
+                <div class="grid-4" id="crypto-grid"></div>
+
+                <script>
+                    var cryptos = [
+                        { symbol: "BTC", name: "Bitcoin", price: "₹56,27,317", change: 2.34, volume: "₹2,34,716 Cr", icon: "₿" },
+                        { symbol: "ETH", name: "Ethereum", price: "₹3,20,718", change: 1.78, volume: "₹1,03,545 Cr", icon: "Ξ" },
+                        { symbol: "SOL", name: "Solana", price: "₹15,233", change: 4.12, volume: "₹31,719 Cr", icon: "◎" },
+                        { symbol: "BNB", name: "BNB Chain", price: "₹51,118", change: -0.84, volume: "₹15,859 Cr", icon: "🔶" },
+                        { symbol: "ADA", name: "Cardano", price: "₹52", change: 3.21, volume: "₹7,446 Cr", icon: "🔵" },
+                        { symbol: "AVAX", name: "Avalanche", price: "₹3,520", change: -1.45, volume: "₹4,274 Cr", icon: "🔺" },
+                        { symbol: "MATIC", name: "Polygon", price: "₹83", change: 2.67, volume: "₹3,322 Cr", icon: "🟣" },
+                        { symbol: "DOT", name: "Polkadot", price: "₹824", change: 1.34, volume: "₹2,362 Cr", icon: "⚪" }
+                    ];
+
+                    var container = document.getElementById("crypto-grid");
+                    var html = "";
+                    for (var i = 0; i < cryptos.length; i++) {
+                        var c = cryptos[i];
+                        var badge = c.change >= 0 ? "badge-gain" : "badge-loss";
+                        var sign = c.change >= 0 ? "+" : "";
+                        html += '<div class="glass-card" style="cursor:pointer">';
+                        html += '  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">';
+                        html += '    <span style="font-size:28px">' + c.icon + '</span>';
+                        html += '    <div>';
+                        html += '      <p style="font-weight:700">' + c.symbol + '</p>';
+                        html += '      <p style="color:var(--text-muted);font-size:12px">' + c.name + '</p>';
+                        html += '    </div>';
+                        html += '  </div>';
+                        html += '  <p style="font-size:20px;font-weight:700;margin-bottom:8px">' + c.price + '</p>';
+                        html += '  <span class="' + badge + '">' + sign + c.change.toFixed(2) + '%</span>';
+                        html += '  <p style="color:var(--text-muted);font-size:11px;margin-top:8px">Vol: ' + c.volume + '</p>';
+                        html += '</div>';
+                    }
+                    container.innerHTML = html;
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

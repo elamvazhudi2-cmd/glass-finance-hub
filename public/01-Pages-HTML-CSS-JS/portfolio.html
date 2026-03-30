@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track, analyze and optimize your investments - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Portfolio Manager | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Portfolio Manager</h1>
+                    <p class="page-subtitle">Track, analyze and optimize your investments</p>
+                </div>
+
+                <div class="grid-4" style="margin-bottom:32px">
+                    <div class="glass-card stat-card"><div class="stat-icon">💼</div><div class="stat-value" id="pf-total">—</div><div class="stat-label">Portfolio Value</div></div>
+                    <div class="glass-card stat-card"><div class="stat-icon">💰</div><div class="stat-value" id="pf-cost">—</div><div class="stat-label">Total Invested</div></div>
+                    <div class="glass-card stat-card"><div class="stat-icon">📈</div><div class="stat-value" id="pf-pl" style="color:var(--green)">—</div><div class="stat-label">Total P&L</div></div>
+                    <div class="glass-card stat-card"><div class="stat-icon">📊</div><div class="stat-value" id="pf-pct">—</div><div class="stat-label">Overall Return</div></div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 style="font-size:14px;margin-bottom:16px">Holdings</h3>
+                    <table>
+                        <thead><tr><th>Symbol</th><th>Name</th><th>Qty</th><th>Avg Price</th><th>CMP</th><th>Value</th><th>P&L</th><th>Return</th></tr></thead>
+                        <tbody id="holdings-table"></tbody>
+                    </table>
+                </div>
+
+                <script>
+                    var USD = 83.47;
+                    var holdings = [
+                        { symbol: "AAPL", name: "Apple Inc.", qty: 15, avg: Math.round(155*USD), cmp: Math.round(189.30*USD) },
+                        { symbol: "NVDA", name: "NVIDIA Corp.", qty: 8, avg: Math.round(650*USD), cmp: Math.round(875.39*USD) },
+                        { symbol: "BTC", name: "Bitcoin", qty: 0.12, avg: Math.round(52000*USD), cmp: Math.round(67420*USD) },
+                        { symbol: "ETH", name: "Ethereum", qty: 2.5, avg: Math.round(2800*USD), cmp: Math.round(3842*USD) },
+                        { symbol: "RELIANCE", name: "Reliance Ind.", qty: 30, avg: 2650, cmp: 2948 },
+                        { symbol: "HDFC Flexi", name: "HDFC Flexi Cap", qty: 500, avg: 48, cmp: 64 }
+                    ];
+
+                    var totalVal = 0, totalCost = 0;
+                    var rows = "";
+                    for (var i = 0; i < holdings.length; i++) {
+                        var h = holdings[i];
+                        var val = h.qty * h.cmp;
+                        var cost = h.qty * h.avg;
+                        var pl = val - cost;
+                        var pct = (pl / cost * 100).toFixed(2);
+                        totalVal += val;
+                        totalCost += cost;
+                        var plColor = pl >= 0 ? "var(--green)" : "var(--red)";
+                        var badge = pl >= 0 ? "badge-gain" : "badge-loss";
+                        rows += '<tr>';
+                        rows += '<td><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:8px;font-size:12px;font-weight:600">' + h.symbol + '</span></td>';
+                        rows += '<td>' + h.name + '</td>';
+                        rows += '<td style="color:var(--text-muted)">' + h.qty + '</td>';
+                        rows += '<td style="color:var(--text-muted)">' + formatINR(h.avg) + '</td>';
+                        rows += '<td style="font-weight:600">' + formatINR(h.cmp) + '</td>';
+                        rows += '<td style="font-weight:600">' + formatINR(val) + '</td>';
+                        rows += '<td style="color:' + plColor + ';font-weight:600">' + (pl>=0?"+":"") + formatINR(pl) + '</td>';
+                        rows += '<td><span class="' + badge + '">' + (pl>=0?"+":"") + pct + '%</span></td>';
+                        rows += '</tr>';
+                    }
+                    document.getElementById("holdings-table").innerHTML = rows;
+                    document.getElementById("pf-total").textContent = formatINR(totalVal);
+                    document.getElementById("pf-cost").textContent = formatINR(totalCost);
+                    var totalPL = totalVal - totalCost;
+                    document.getElementById("pf-pl").textContent = (totalPL>=0?"+":"") + formatINR(totalPL);
+                    document.getElementById("pf-pct").textContent = (totalPL/totalCost*100).toFixed(2) + "%";
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

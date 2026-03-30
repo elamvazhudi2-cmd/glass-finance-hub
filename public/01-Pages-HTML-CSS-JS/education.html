@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn investing from basics to advanced - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Educational Hub | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Educational Hub</h1>
+                    <p class="page-subtitle">Learn investing from basics to advanced</p>
+                </div>
+
+                <div class="grid-4" style="margin-bottom:32px">
+                    <div class="glass-card-sm stat-card"><p style="font-size:24px;font-weight:700;color:var(--accent)">6</p><p style="font-size:12px;color:var(--text-muted)">Modules</p></div>
+                    <div class="glass-card-sm stat-card"><p style="font-size:24px;font-weight:700;color:var(--accent)">42</p><p style="font-size:12px;color:var(--text-muted)">Total Lessons</p></div>
+                    <div class="glass-card-sm stat-card"><p style="font-size:24px;font-weight:700;color:var(--accent)">12+</p><p style="font-size:12px;color:var(--text-muted)">Hours</p></div>
+                    <div class="glass-card-sm stat-card"><p style="font-size:24px;font-weight:700;color:var(--accent)">18K+</p><p style="font-size:12px;color:var(--text-muted)">Learners</p></div>
+                </div>
+
+                <div class="grid-2-1">
+                    <div id="modules-list"></div>
+                    <div>
+                        <div class="glass-card">
+                            <h3 style="font-size:14px;margin-bottom:16px;color:var(--gold)">📖 Finance Glossary</h3>
+                            <div id="glossary"></div>
+                        </div>
+                        <div class="glass-card" style="margin-top:16px;background:var(--accent-light);border:1px solid rgba(56,189,248,0.2)">
+                            <p style="font-weight:700;margin-bottom:4px">💡 Tip of the Day</p>
+                            <p style="font-size:13px;color:var(--text-muted)">Rule of 72: Divide 72 by your annual return to find years to double your money.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var modules = [
+                        { title: "Investing Fundamentals", icon: "📚", lessons: 8, time: "2h 30m", topics: ["What is Investing?", "Risk vs Return", "Asset Classes", "Diversification", "Power of Compounding", "Time Value of Money", "Financial Goals", "Building Portfolio"] },
+                        { title: "Stock Market Basics", icon: "📈", lessons: 10, time: "3h 15m", topics: ["How Stock Markets Work", "Types of Stocks", "Reading Charts", "Fundamental Analysis", "Technical Analysis", "P/E Ratio", "IPOs Explained", "Placing Orders", "Circuit Filters", "Market Indices"] },
+                        { title: "Mutual Funds Deep Dive", icon: "🏦", lessons: 7, time: "2h", topics: ["Types of Mutual Funds", "SIP vs Lumpsum", "NAV & AUM", "Expense Ratio", "ELSS Tax Saving", "Direct vs Regular", "How to Redeem"] },
+                        { title: "Crypto & Web3", icon: "🪙", lessons: 6, time: "1h 45m", topics: ["Blockchain Basics", "How Bitcoin Works", "DeFi Explained", "NFTs", "Wallets & Security", "Tax on Crypto"] },
+                        { title: "Tax Planning", icon: "📋", lessons: 5, time: "1h 20m", topics: ["Income Tax Slabs", "Section 80C", "Capital Gains", "HRA & Deductions", "Filing ITR"] },
+                        { title: "Retirement Planning", icon: "🏖️", lessons: 6, time: "1h 50m", topics: ["EPF & PPF", "NPS Explained", "Annuity Plans", "Corpus Calculation", "Inflation", "Senior Citizen Schemes"] }
+                    ];
+
+                    var expanded = 0;
+                    function renderModules() {
+                        var html = "";
+                        for (var i = 0; i < modules.length; i++) {
+                            var m = modules[i];
+                            var isOpen = i === expanded;
+                            html += '<div class="glass-card" style="margin-bottom:12px;padding:0;overflow:hidden">';
+                            html += '  <div style="padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer" onclick="toggleModule(' + i + ')">';
+                            html += '    <span style="font-size:24px">' + m.icon + '</span>';
+                            html += '    <div style="flex:1"><p style="font-weight:700;font-size:14px">' + m.title + '</p><p style="color:var(--text-muted);font-size:12px">' + m.lessons + ' lessons · ' + m.time + '</p></div>';
+                            html += '    <span style="color:var(--text-muted);font-size:18px">' + (isOpen ? "−" : "+") + '</span>';
+                            html += '  </div>';
+                            if (isOpen) {
+                                html += '  <div style="padding:0 20px 20px;border-top:1px solid var(--border-color)">';
+                                html += '    <div class="grid-2" style="margin-top:16px">';
+                                for (var j = 0; j < m.topics.length; j++) {
+                                    html += '<div style="padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.03);font-size:12px;display:flex;align-items:center;gap:8px"><span style="color:var(--accent)">▶</span> ' + m.topics[j] + '</div>';
+                                }
+                                html += '    </div></div>';
+                            }
+                            html += '</div>';
+                        }
+                        document.getElementById("modules-list").innerHTML = html;
+                    }
+
+                    function toggleModule(i) {
+                        expanded = expanded === i ? -1 : i;
+                        renderModules();
+                    }
+
+                    renderModules();
+
+                    var glossary = [
+                        { term: "NAV", def: "Net Asset Value — per unit price of a mutual fund" },
+                        { term: "SIP", def: "Systematic Investment Plan — fixed periodic investment" },
+                        { term: "P/E Ratio", def: "Price-to-Earnings — stock valuation metric" },
+                        { term: "CAGR", def: "Compound Annual Growth Rate" },
+                        { term: "FII", def: "Foreign Institutional Investor" },
+                        { term: "DII", def: "Domestic Institutional Investor" }
+                    ];
+                    var gHtml = "";
+                    for (var i = 0; i < glossary.length; i++) {
+                        gHtml += '<div style="padding-bottom:12px;margin-bottom:12px;border-bottom:' + (i < glossary.length-1 ? '1px solid var(--border-color)' : 'none') + '">';
+                        gHtml += '<p style="font-size:12px;font-weight:700;color:var(--accent)">' + glossary[i].term + '</p>';
+                        gHtml += '<p style="font-size:12px;color:var(--text-muted)">' + glossary[i].def + '</p>';
+                        gHtml += '</div>';
+                    }
+                    document.getElementById("glossary").innerHTML = gHtml;
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
