@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your portfolio is performing +12.4% this year - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Good Morning, Ashwin 👋 | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Good Morning, Ashwin 👋</h1>
+                    <p class="page-subtitle">Your portfolio is performing +12.4% this year</p>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="grid-4" style="margin-bottom:32px">
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value">₹1,03,97,213</div>
+                        <div class="stat-label">Portfolio Value</div>
+                        <span class="badge-gain" style="margin-top:8px">+12.4%</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-value">+₹11,55,001</div>
+                        <div class="stat-label">Total Gain/Loss</div>
+                        <span class="badge-gain" style="margin-top:8px">This Month</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Active Positions</div>
+                        <span class="badge-gain" style="margin-top:8px">8 Sectors</span>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-value">Moderate</div>
+                        <div class="stat-label">Risk Score</div>
+                        <span class="badge-gain" style="margin-top:8px">6.2/10</span>
+                    </div>
+                </div>
+
+                <!-- Watchlist -->
+                <h2 style="font-size:18px;margin-bottom:16px;color:var(--text-primary)">Watchlist</h2>
+                <div class="grid-4" style="margin-bottom:32px" id="watchlist-cards">
+                    <!-- Cards injected by JS below -->
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="glass-card">
+                    <h3 style="font-size:14px;margin-bottom:16px;color:var(--text-primary)">Recent Activity</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Symbol</th>
+                                <th>Details</th>
+                                <th>Amount</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bought</td>
+                                <td><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:8px;font-size:12px;font-weight:600">NVDA</span></td>
+                                <td style="color:var(--text-muted)">10 shares</td>
+                                <td style="color:var(--green);font-weight:600">+₹7,30,773</td>
+                                <td style="color:var(--text-muted)">2h ago</td>
+                            </tr>
+                            <tr>
+                                <td>Sold</td>
+                                <td><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:8px;font-size:12px;font-weight:600">META</span></td>
+                                <td style="color:var(--text-muted)">5 shares</td>
+                                <td style="color:var(--red);font-weight:600">-₹2,19,944</td>
+                                <td style="color:var(--text-muted)">5h ago</td>
+                            </tr>
+                            <tr>
+                                <td>Dividend</td>
+                                <td><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:8px;font-size:12px;font-weight:600">AAPL</span></td>
+                                <td style="color:var(--text-muted)">Q4 Payout</td>
+                                <td style="color:var(--green);font-weight:600">+₹11,852</td>
+                                <td style="color:var(--text-muted)">1d ago</td>
+                            </tr>
+                            <tr>
+                                <td>Bought</td>
+                                <td><span style="background:var(--accent-light);color:var(--accent);padding:2px 8px;border-radius:8px;font-size:12px;font-weight:600">BTC</span></td>
+                                <td style="color:var(--text-muted)">0.05 BTC</td>
+                                <td style="color:var(--green);font-weight:600">+₹2,81,299</td>
+                                <td style="color:var(--text-muted)">2d ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="grid-3" style="margin-top:24px">
+                    <a href="calculator.html" class="glass-card" style="display:flex;align-items:center;gap:16px">
+                        <span style="font-size:32px">🧮</span>
+                        <div>
+                            <p style="font-weight:600;font-size:14px">Investment Calculator</p>
+                            <p style="color:var(--text-muted);font-size:12px">FD, SIP, Lumpsum returns</p>
+                        </div>
+                    </a>
+                    <a href="tax.html" class="glass-card" style="display:flex;align-items:center;gap:16px">
+                        <span style="font-size:32px">📋</span>
+                        <div>
+                            <p style="font-weight:600;font-size:14px">Tax Planner</p>
+                            <p style="color:var(--text-muted);font-size:12px">Optimize your tax outgo</p>
+                        </div>
+                    </a>
+                    <a href="retirement.html" class="glass-card" style="display:flex;align-items:center;gap:16px">
+                        <span style="font-size:32px">🏖️</span>
+                        <div>
+                            <p style="font-weight:600;font-size:14px">Retirement Estimator</p>
+                            <p style="color:var(--text-muted);font-size:12px">Plan your future today</p>
+                        </div>
+                    </a>
+                </div>
+
+                <script>
+                    // Dashboard watchlist - onClick event handler for asset switching
+                    var watchlistAssets = [
+                        { symbol: "AAPL", name: "Apple Inc.", price: "₹15,800", change: 1.24, icon: "🍎" },
+                        { symbol: "TSLA", name: "Tesla Inc.", price: "₹20,737", change: -1.92, icon: "⚡" },
+                        { symbol: "BTC", name: "Bitcoin", price: "₹56,27,317", change: 2.34, icon: "₿" },
+                        { symbol: "ETH", name: "Ethereum", price: "₹3,20,718", change: 1.78, icon: "Ξ" }
+                    ];
+
+                    var watchlistContainer = document.getElementById("watchlist-cards");
+                    var html = "";
+                    for (var i = 0; i < watchlistAssets.length; i++) {
+                        var asset = watchlistAssets[i];
+                        var badgeClass = asset.change >= 0 ? "badge-gain" : "badge-loss";
+                        var sign = asset.change >= 0 ? "+" : "";
+                        html += '<div class="glass-card" style="cursor:pointer" onclick="selectAsset(\'' + asset.symbol + '\')">';
+                        html += '  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">';
+                        html += '    <span style="font-size:24px">' + asset.icon + '</span>';
+                        html += '    <div>';
+                        html += '      <p style="font-weight:700;font-size:14px">' + asset.symbol + '</p>';
+                        html += '      <p style="color:var(--text-muted);font-size:12px">' + asset.name + '</p>';
+                        html += '    </div>';
+                        html += '  </div>';
+                        html += '  <p style="font-size:20px;font-weight:700">' + asset.price + '</p>';
+                        html += '  <span class="' + badgeClass + '">' + sign + asset.change.toFixed(2) + '%</span>';
+                        html += '</div>';
+                    }
+                    watchlistContainer.innerHTML = html;
+
+                    // onClick handler - shows selected asset info
+                    function selectAsset(symbol) {
+                        var asset = watchlistAssets.find(function(a) { return a.symbol === symbol; });
+                        if (asset) {
+                            alert("Selected: " + asset.name + " (" + asset.symbol + ")\nPrice: " + asset.price + "\nChange: " + (asset.change >= 0 ? "+" : "") + asset.change + "%");
+                        }
+                    }
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

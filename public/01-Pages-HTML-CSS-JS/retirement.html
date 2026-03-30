@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your financial freedom - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Retirement Estimator | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Retirement Estimator</h1>
+                    <p class="page-subtitle">Plan your financial freedom</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2 style="font-size:16px;margin-bottom:20px">Your Details</h2>
+                        <div id="ret-sliders"></div>
+                        <div class="result-box" id="ret-result" style="margin-top:20px"></div>
+                    </div>
+                    <div id="ret-cards"></div>
+                </div>
+
+                <script>
+                    var retParams = [
+                        { id: "age", label: "Current Age", min: 18, max: 60, step: 1, value: 30, unit: " yrs" },
+                        { id: "retire", label: "Retirement Age", min: 40, max: 75, step: 1, value: 60, unit: " yrs" },
+                        { id: "monthly", label: "Monthly Expenses", min: 10000, max: 500000, step: 5000, value: 50000, unit: "", isCurrency: true },
+                        { id: "inflation", label: "Expected Inflation", min: 3, max: 12, step: 0.5, value: 6, unit: "%" },
+                        { id: "returns", label: "Expected Returns", min: 6, max: 20, step: 0.5, value: 12, unit: "%" }
+                    ];
+
+                    var slidersHtml = "";
+                    for (var i = 0; i < retParams.length; i++) {
+                        var p = retParams[i];
+                        var displayVal = p.isCurrency ? formatINR(p.value) : p.value + p.unit;
+                        slidersHtml += '<div style="margin-bottom:20px">';
+                        slidersHtml += '  <div style="display:flex;justify-content:space-between;margin-bottom:8px">';
+                        slidersHtml += '    <label style="font-size:12px;color:var(--text-muted)">' + p.label + '</label>';
+                        slidersHtml += '    <span id="ret-' + p.id + '-val" style="font-size:12px;font-weight:700;color:var(--accent)">' + displayVal + '</span>';
+                        slidersHtml += '  </div>';
+                        slidersHtml += '  <input type="range" id="ret-' + p.id + '" min="' + p.min + '" max="' + p.max + '" step="' + p.step + '" value="' + p.value + '" oninput="calcRetirement()">';
+                        slidersHtml += '</div>';
+                    }
+                    document.getElementById("ret-sliders").innerHTML = slidersHtml;
+
+                    function calcRetirement() {
+                        var age = parseFloat(document.getElementById("ret-age").value);
+                        var retire = parseFloat(document.getElementById("ret-retire").value);
+                        var monthly = parseFloat(document.getElementById("ret-monthly").value);
+                        var inflation = parseFloat(document.getElementById("ret-inflation").value);
+                        var returns = parseFloat(document.getElementById("ret-returns").value);
+
+                        document.getElementById("ret-age-val").textContent = age + " yrs";
+                        document.getElementById("ret-retire-val").textContent = retire + " yrs";
+                        document.getElementById("ret-monthly-val").textContent = formatINR(monthly);
+                        document.getElementById("ret-inflation-val").textContent = inflation + "%";
+                        document.getElementById("ret-returns-val").textContent = returns + "%";
+
+                        var years = retire - age;
+                        var futureMonthly = monthly * Math.pow(1 + inflation/100, years);
+                        var corpus = futureMonthly * 12 / ((returns - inflation) / 100);
+                        var r = returns / 1200;
+                        var n = years * 12;
+                        var sipNeeded = corpus * r / (Math.pow(1 + r, n) - 1);
+
+                        document.getElementById("ret-result").innerHTML =
+                            '<div class="result-row"><span class="label">Years to Retire</span><span class="value">' + years + ' years</span></div>' +
+                            '<div class="result-row"><span class="label">Future Monthly Need</span><span class="value">' + formatINR(futureMonthly) + '</span></div>' +
+                            '<div class="result-row total"><span class="label">Corpus Needed</span><span class="value">' + formatINR(corpus) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Monthly SIP Required</span><span class="value" style="color:var(--gold)">' + formatINR(sipNeeded) + '</span></div>';
+
+                        document.getElementById("ret-cards").innerHTML =
+                            '<div style="display:flex;flex-direction:column;gap:16px">' +
+                            '<div class="glass-card" style="display:flex;align-items:center;gap:16px"><span style="font-size:32px">🎯</span><div><p style="font-size:20px;font-weight:700;color:var(--accent)">' + formatINR(corpus) + '</p><p style="color:var(--text-muted);font-size:12px">Corpus Needed at Retirement</p></div></div>' +
+                            '<div class="glass-card" style="display:flex;align-items:center;gap:16px"><span style="font-size:32px">📅</span><div><p style="font-size:20px;font-weight:700;color:var(--gold)">' + formatINR(sipNeeded) + '</p><p style="color:var(--text-muted);font-size:12px">Monthly SIP Required</p></div></div>' +
+                            '<div class="glass-card" style="display:flex;align-items:center;gap:16px"><span style="font-size:32px">🏖️</span><div><p style="font-size:20px;font-weight:700;color:var(--green)">' + formatINR(futureMonthly) + '</p><p style="color:var(--text-muted);font-size:12px">Monthly Expenses at Retirement</p></div></div>' +
+                            '</div>';
+                    }
+                    calcRetirement();
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

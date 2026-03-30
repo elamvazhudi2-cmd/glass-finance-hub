@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NFTs & Digital Asset Marketplace - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Digital Ornamentals | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Digital Ornamentals</h1>
+                    <p class="page-subtitle">NFTs & Digital Asset Marketplace</p>
+                </div>
+
+                <div class="grid-4" style="margin-bottom:32px">
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">💎</div><div class="stat-value">₹70,261 Cr</div><div class="stat-label">Total Volume</div></div>
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">🗂️</div><div class="stat-value">14,280</div><div class="stat-label">Collections</div></div>
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">👤</div><div class="stat-value">48,312</div><div class="stat-label">Traders (24h)</div></div>
+                    <div class="glass-card-sm stat-card"><div class="stat-icon">📈</div><div class="stat-value">2.4 ETH</div><div class="stat-label">Avg Price</div></div>
+                </div>
+
+                <div class="grid-4" id="nft-grid"></div>
+
+                <script>
+                    var nfts = [
+                        { name: "CryptoPunk #3100", collection: "CryptoPunks", price: "96.25 ETH", inr: "₹3,08,69,108", icon: "🤖", rarity: "Legendary" },
+                        { name: "Bored Ape #7090", collection: "BAYC", price: "82.00 ETH", inr: "₹2,62,98,876", icon: "🦍", rarity: "Rare" },
+                        { name: "Azuki #1012", collection: "Azuki", price: "18.5 ETH", inr: "₹59,33,283", icon: "🌸", rarity: "Uncommon" },
+                        { name: "Pudgy Penguin #6458", collection: "Pudgy Penguins", price: "12.8 ETH", inr: "₹41,05,190", icon: "🐧", rarity: "Common" },
+                        { name: "DeGod #2136", collection: "DeGods", price: "22.4 ETH", inr: "₹71,84,083", icon: "👁️", rarity: "Rare" },
+                        { name: "World of Women #394", collection: "WoW", price: "8.75 ETH", inr: "₹28,06,283", icon: "🎨", rarity: "Uncommon" },
+                        { name: "Doodle #6914", collection: "Doodles", price: "5.60 ETH", inr: "₹17,96,021", icon: "🌈", rarity: "Common" },
+                        { name: "Clone X #17043", collection: "Clone X", price: "14.2 ETH", inr: "₹45,54,196", icon: "🤖", rarity: "Rare" }
+                    ];
+
+                    var rarityColors = { Legendary: "var(--gold)", Rare: "var(--accent)", Uncommon: "#a78bfa", Common: "var(--text-muted)" };
+
+                    var html = "";
+                    for (var i = 0; i < nfts.length; i++) {
+                        var n = nfts[i];
+                        html += '<div class="glass-card" style="padding:0;overflow:hidden">';
+                        html += '  <div style="height:180px;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(135deg,hsl(' + (i*50)%360 + ' 60% 15%),hsl(' + (i*80)%360 + ' 70% 10%))">';
+                        html += '    ' + n.icon;
+                        html += '    <span style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.5);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;color:' + rarityColors[n.rarity] + '">✦ ' + n.rarity + '</span>';
+                        html += '  </div>';
+                        html += '  <div style="padding:16px">';
+                        html += '    <p style="font-weight:700;font-size:14px">' + n.name + '</p>';
+                        html += '    <p style="color:var(--text-muted);font-size:12px">' + n.collection + '</p>';
+                        html += '    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">';
+                        html += '      <div><p style="color:var(--text-muted);font-size:11px">Price</p><p style="font-weight:700">' + n.price + '</p><p style="color:var(--text-muted);font-size:11px">' + n.inr + '</p></div>';
+                        html += '      <button class="btn-primary" style="padding:8px 16px;font-size:12px">Buy Now</button>';
+                        html += '    </div>';
+                        html += '  </div>';
+                        html += '</div>';
+                    }
+                    document.getElementById("nft-grid").innerHTML = html;
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

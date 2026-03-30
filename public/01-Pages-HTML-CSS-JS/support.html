@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="We're here to help · Avg response: 2 hours - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Support & Contact | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Support & Contact</h1>
+                    <p class="page-subtitle">We're here to help · Avg response: 2 hours</p>
+                </div>
+
+                <div class="grid-3" style="margin-bottom:32px">
+                    <div class="glass-card" style="display:flex;align-items:center;gap:16px">
+                        <div style="width:40px;height:40px;border-radius:12px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;color:var(--accent)">💬</div>
+                        <div><p style="font-weight:700;font-size:14px">Live Chat</p><p style="color:var(--text-muted);font-size:12px">9am–9pm IST</p></div>
+                    </div>
+                    <div class="glass-card" style="display:flex;align-items:center;gap:16px">
+                        <div style="width:40px;height:40px;border-radius:12px;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;color:var(--green)">📞</div>
+                        <div><p style="font-weight:700;font-size:14px">Phone</p><p style="color:var(--text-muted);font-size:12px">+91 1800-123-4567</p></div>
+                    </div>
+                    <div class="glass-card" style="display:flex;align-items:center;gap:16px">
+                        <div style="width:40px;height:40px;border-radius:12px;background:rgba(251,191,36,0.15);display:flex;align-items:center;justify-content:center;color:var(--gold)">📧</div>
+                        <div><p style="font-weight:700;font-size:14px">Email</p><p style="color:var(--text-muted);font-size:12px">support@finanalyst.io</p></div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Contact Form - onSubmit handler -->
+                    <div class="glass-card">
+                        <h2 style="font-size:16px;margin-bottom:20px">Send a Message</h2>
+                        <form id="contact-form" onsubmit="handleSubmit(event)">
+                            <div style="margin-bottom:16px">
+                                <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:6px">Full Name</label>
+                                <input type="text" id="form-name" placeholder="Ashwin Raaj" required>
+                            </div>
+                            <div style="margin-bottom:16px">
+                                <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:6px">Email Address</label>
+                                <input type="email" id="form-email" placeholder="ashwin@example.com" required>
+                            </div>
+                            <div style="margin-bottom:16px">
+                                <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:6px">Subject</label>
+                                <input type="text" id="form-subject" placeholder="Portfolio sync issue...">
+                            </div>
+                            <div style="margin-bottom:16px">
+                                <label style="display:block;font-size:12px;color:var(--text-muted);margin-bottom:6px">Message</label>
+                                <textarea id="form-message" rows="4" placeholder="Describe your issue..." required style="resize:none"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary" style="width:100%">✉️ Send Message</button>
+                        </form>
+                        <div id="form-success" style="display:none;text-align:center;padding:40px 0">
+                            <p style="font-size:48px;margin-bottom:12px">✅</p>
+                            <p style="font-weight:700;font-size:16px">Message Sent!</p>
+                            <p style="color:var(--text-muted);font-size:14px;margin-top:4px">We'll get back to you within 2 hours.</p>
+                            <button class="btn-ghost" style="margin-top:16px" onclick="resetForm()">Send Another</button>
+                        </div>
+                    </div>
+
+                    <!-- FAQs -->
+                    <div class="glass-card">
+                        <h2 style="font-size:16px;margin-bottom:20px">Frequently Asked Questions</h2>
+                        <div id="faq-list"></div>
+                    </div>
+                </div>
+
+                <script>
+                    // onSubmit event handler for investment lead form
+                    function handleSubmit(event) {
+                        event.preventDefault();
+                        var name = document.getElementById("form-name").value;
+                        var email = document.getElementById("form-email").value;
+                        var message = document.getElementById("form-message").value;
+
+                        if (!name || !email || !message) {
+                            alert("Please fill all required fields.");
+                            return;
+                        }
+
+                        // Hide form, show success
+                        document.getElementById("contact-form").style.display = "none";
+                        document.getElementById("form-success").style.display = "block";
+                    }
+
+                    function resetForm() {
+                        document.getElementById("contact-form").reset();
+                        document.getElementById("contact-form").style.display = "block";
+                        document.getElementById("form-success").style.display = "none";
+                    }
+
+                    var faqs = [
+                        { q: "How do I add a new holding?", a: "Go to Portfolio Manager → click Add Holding → enter symbol, quantity, and avg price." },
+                        { q: "Is the crypto data real-time?", a: "Yes, prices are fetched via CoinGecko API with ~60 second refresh intervals." },
+                        { q: "How is tax calculated?", a: "We use official CBDT slabs for FY 2024-25. Please consult a CA for filing." },
+                        { q: "Can I export portfolio data?", a: "Yes! Go to Portfolio Manager → click Export button for CSV/PDF report." }
+                    ];
+
+                    var faqHtml = "";
+                    var expandedFaq = -1;
+                    function renderFaqs() {
+                        var html = "";
+                        for (var i = 0; i < faqs.length; i++) {
+                            var isOpen = i === expandedFaq;
+                            html += '<div style="background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;overflow:hidden">';
+                            html += '  <div style="padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="toggleFaq(' + i + ')">';
+                            html += '    <span style="font-size:14px;font-weight:500">' + faqs[i].q + '</span>';
+                            html += '    <span style="color:var(--accent);font-size:18px">' + (isOpen ? "−" : "+") + '</span>';
+                            html += '  </div>';
+                            if (isOpen) {
+                                html += '  <div style="padding:0 16px 12px;color:var(--text-muted);font-size:13px;border-top:1px solid var(--border-color)">';
+                                html += '    <p style="padding-top:12px">' + faqs[i].a + '</p>';
+                                html += '  </div>';
+                            }
+                            html += '</div>';
+                        }
+                        document.getElementById("faq-list").innerHTML = html;
+                    }
+
+                    function toggleFaq(i) {
+                        expandedFaq = expandedFaq === i ? -1 : i;
+                        renderFaqs();
+                    }
+
+                    renderFaqs();
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

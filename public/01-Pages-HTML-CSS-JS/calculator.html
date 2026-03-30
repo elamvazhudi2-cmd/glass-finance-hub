@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FD · SIP · Lumpsum · PPF — Live computation - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Master Investment Calculator | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Master Investment Calculator</h1>
+                    <p class="page-subtitle">FD · SIP · Lumpsum · PPF — Live computation</p>
+                </div>
+
+                <!-- Mode Tabs - onClick event handler -->
+                <div style="display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap">
+                    <button class="btn-primary" id="tab-sip" onclick="setCalcMode('sip')">📈 SIP (Mutual Fund)</button>
+                    <button class="btn-ghost" id="tab-fd" onclick="setCalcMode('fd')">📊 Fixed Deposit</button>
+                    <button class="btn-ghost" id="tab-lumpsum" onclick="setCalcMode('lumpsum')">🐖 Lumpsum</button>
+                    <button class="btn-ghost" id="tab-ppf" onclick="setCalcMode('ppf')">🧮 PPF / EPF</button>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Controls -->
+                    <div class="glass-card">
+                        <h3 style="font-size:16px;margin-bottom:24px">Adjust Parameters</h3>
+
+                        <!-- Monthly / Principal -->
+                        <div id="calc-input-1" style="margin-bottom:24px">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                                <label id="lbl1" style="font-size:12px;color:var(--text-muted)">Monthly Investment</label>
+                                <span id="val1" style="font-size:12px;font-weight:700;color:var(--accent)">₹5,000</span>
+                            </div>
+                            <input type="range" id="slider1" min="500" max="100000" step="500" value="5000" oninput="calcInvestment()">
+                        </div>
+
+                        <!-- Rate -->
+                        <div id="calc-input-2" style="margin-bottom:24px">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                                <label style="font-size:12px;color:var(--text-muted)">Expected Return (% p.a.)</label>
+                                <span id="val2" style="font-size:12px;font-weight:700;color:var(--accent)">12%</span>
+                            </div>
+                            <input type="range" id="slider2" min="1" max="30" step="0.5" value="12" oninput="calcInvestment()">
+                        </div>
+
+                        <!-- Tenure -->
+                        <div style="margin-bottom:24px">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                                <label style="font-size:12px;color:var(--text-muted)">Time Period</label>
+                                <span id="val3" style="font-size:12px;font-weight:700;color:var(--accent)">10 Years</span>
+                            </div>
+                            <input type="range" id="slider3" min="1" max="40" step="1" value="10" oninput="calcInvestment()">
+                        </div>
+
+                        <!-- Result -->
+                        <div class="result-box" id="calc-result"></div>
+                    </div>
+
+                    <!-- Formula -->
+                    <div class="glass-card">
+                        <h3 style="font-size:16px;margin-bottom:16px">Formula Used</h3>
+                        <div id="formula-display" style="background:var(--bg-card);padding:16px;border-radius:12px;font-family:monospace;font-size:13px;color:var(--accent);margin-bottom:24px">
+                            FV = P × [(1 + r)^n − 1] / r × (1 + r)
+                        </div>
+                        <p style="font-size:13px;color:var(--text-muted);line-height:1.8">
+                            <strong>Where:</strong><br>
+                            P = Monthly investment amount<br>
+                            r = Monthly rate (annual rate / 12)<br>
+                            n = Total months (years × 12)<br>
+                            FV = Future value at maturity
+                        </p>
+                    </div>
+                </div>
+
+                <script>
+                    var calcMode = "sip";
+
+                    // onClick - switch calculator mode
+                    function setCalcMode(mode) {
+                        calcMode = mode;
+                        var tabs = ["sip", "fd", "lumpsum", "ppf"];
+                        for (var i = 0; i < tabs.length; i++) {
+                            var btn = document.getElementById("tab-" + tabs[i]);
+                            btn.className = tabs[i] === mode ? "btn-primary" : "btn-ghost";
+                        }
+
+                        var label1 = document.getElementById("lbl1");
+                        var slider1 = document.getElementById("slider1");
+                        var rateDiv = document.getElementById("calc-input-2");
+
+                        if (mode === "sip" || mode === "ppf") {
+                            label1.textContent = "Monthly Investment";
+                            slider1.min = 500; slider1.max = 100000; slider1.step = 500; slider1.value = 5000;
+                        } else {
+                            label1.textContent = "Principal Amount";
+                            slider1.min = 1000; slider1.max = 10000000; slider1.step = 1000; slider1.value = 100000;
+                        }
+
+                        rateDiv.style.display = mode === "ppf" ? "none" : "block";
+
+                        var formulas = {
+                            sip: "FV = P × [(1 + r)^n − 1] / r × (1 + r)",
+                            fd: "A = P × (1 + r/n)^(n×t)  where n=4 (quarterly)",
+                            lumpsum: "A = P × (1 + r/100)^t",
+                            ppf: "FV = P × [(1 + r)^n − 1] / r × (1 + r)  at 7.1% p.a."
+                        };
+                        document.getElementById("formula-display").textContent = formulas[mode];
+
+                        calcInvestment();
+                    }
+
+                    // onInput - real-time calculation updates
+                    function calcInvestment() {
+                        var v1 = parseFloat(document.getElementById("slider1").value);
+                        var rate = parseFloat(document.getElementById("slider2").value);
+                        var years = parseFloat(document.getElementById("slider3").value);
+
+                        document.getElementById("val1").textContent = formatINR(v1);
+                        document.getElementById("val2").textContent = rate + "%";
+                        document.getElementById("val3").textContent = years + " Years";
+
+                        var invested, maturity, gain;
+
+                        if (calcMode === "fd") {
+                            invested = v1;
+                            maturity = v1 * Math.pow(1 + rate / 400, 4 * years);
+                            gain = maturity - invested;
+                        } else if (calcMode === "sip") {
+                            var r = rate / 1200;
+                            var n = years * 12;
+                            invested = v1 * n;
+                            maturity = v1 * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+                            gain = maturity - invested;
+                        } else if (calcMode === "lumpsum") {
+                            invested = v1;
+                            maturity = v1 * Math.pow(1 + rate / 100, years);
+                            gain = maturity - invested;
+                        } else {
+                            var ppfRate = 7.1 / 100;
+                            invested = v1 * 12 * years;
+                            maturity = v1 * 12 * ((Math.pow(1 + ppfRate, years) - 1) / ppfRate) * (1 + ppfRate);
+                            gain = maturity - invested;
+                        }
+
+                        var returnPct = ((maturity - invested) / invested * 100).toFixed(1);
+
+                        document.getElementById("calc-result").innerHTML =
+                            '<div class="result-row"><span class="label">Total Invested</span><span class="value">' + formatINR(invested) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Wealth Gained</span><span class="value" style="color:var(--green)">+' + formatINR(gain) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Total Returns</span><span class="value" style="color:var(--gold)">' + returnPct + '%</span></div>' +
+                            '<div class="result-row total"><span class="label">Maturity Amount</span><span class="value">' + formatINR(maturity) + '</span></div>';
+                    }
+
+                    calcInvestment();
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

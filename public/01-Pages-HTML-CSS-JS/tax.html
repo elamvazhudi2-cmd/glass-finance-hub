@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FY 2024-25 · Income Tax Estimation - Financial Analyst Investment Hub by Ashwin Raaj">
+    <title>Tax Planner | FinAnalyst Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">FI</div>
+                <div class="logo-text">
+                    <h3>FinAnalyst Hub</h3>
+                    <p>Investment Platform</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by script.js -->
+            </nav>
+            <div class="sidebar-profile">
+                <div class="avatar">AR</div>
+                <div class="info">
+                    <h4>Ashwin Raaj</h4>
+                    <p>Pro Investor</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <div style="flex:1"></div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Markets Live
+                </div>
+            </header>
+
+            <!-- Ticker -->
+            <div class="ticker-bar">
+                <div class="ticker-content" id="ticker-content"></div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="page-container">
+                <div class="page-header">
+                    <h1 class="page-title">Tax Planner</h1>
+                    <p class="page-subtitle">FY 2024-25 · Income Tax Estimation</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h2 style="font-size:16px;margin-bottom:20px">Income & Deductions</h2>
+                        <div style="margin-bottom:20px">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                                <label style="font-size:12px;color:var(--text-muted)">Gross Annual Income</label>
+                                <span id="tax-income-val" style="font-size:12px;font-weight:700;color:var(--accent)">₹12,00,000</span>
+                            </div>
+                            <input type="range" id="tax-income" min="100000" max="10000000" step="50000" value="1200000" oninput="calcTax()">
+                        </div>
+                        <div class="result-box" id="tax-result"></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h2 style="font-size:16px;margin-bottom:16px">New Regime Tax Slabs (FY 2024-25)</h2>
+                        <table>
+                            <thead><tr><th>Income Range</th><th>Tax Rate</th></tr></thead>
+                            <tbody>
+                                <tr><td>Up to ₹3L</td><td><span class="badge-gain">0%</span></td></tr>
+                                <tr><td>₹3L – ₹7L</td><td>5%</td></tr>
+                                <tr><td>₹7L – ₹10L</td><td>10%</td></tr>
+                                <tr><td>₹10L – ₹12L</td><td>15%</td></tr>
+                                <tr><td>₹12L – ₹15L</td><td>20%</td></tr>
+                                <tr><td>Above ₹15L</td><td><span class="badge-loss">30%</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <script>
+                    function calcTax() {
+                        var income = parseFloat(document.getElementById("tax-income").value);
+                        document.getElementById("tax-income-val").textContent = formatINR(income);
+
+                        // New regime calculation
+                        var deduction = 75000;
+                        var taxable = Math.max(0, income - deduction);
+                        var tax = 0;
+                        var slabs = [
+                            { upto: 300000, rate: 0 },
+                            { upto: 700000, rate: 0.05 },
+                            { upto: 1000000, rate: 0.10 },
+                            { upto: 1200000, rate: 0.15 },
+                            { upto: 1500000, rate: 0.20 },
+                            { upto: Infinity, rate: 0.30 }
+                        ];
+                        var prev = 0;
+                        for (var i = 0; i < slabs.length; i++) {
+                            if (taxable <= prev) break;
+                            var chunk = Math.min(taxable, slabs[i].upto) - prev;
+                            tax += chunk * slabs[i].rate;
+                            prev = slabs[i].upto;
+                        }
+                        var cess = tax * 0.04;
+                        var total = tax + cess;
+                        var effective = income > 0 ? (total / income * 100).toFixed(2) : "0.00";
+
+                        document.getElementById("tax-result").innerHTML =
+                            '<div class="result-row"><span class="label">Gross Income</span><span class="value">' + formatINR(income) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Standard Deduction</span><span class="value" style="color:var(--green)">' + formatINR(deduction) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Taxable Income</span><span class="value">' + formatINR(taxable) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Income Tax</span><span class="value">' + formatINR(tax) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Cess (4%)</span><span class="value">' + formatINR(cess) + '</span></div>' +
+                            '<div class="result-row total"><span class="label">Total Tax</span><span class="value" style="color:var(--red)">' + formatINR(total) + '</span></div>' +
+                            '<div class="result-row"><span class="label">Effective Rate</span><span class="value" style="color:var(--gold)">' + effective + '%</span></div>' +
+                            '<div class="result-row"><span class="label">In-Hand Income</span><span class="value" style="color:var(--green)">' + formatINR(income - total) + '</span></div>';
+                    }
+                    calcTax();
+                </script>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
